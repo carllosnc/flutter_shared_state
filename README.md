@@ -133,6 +133,11 @@ void main() {
 }
 ```
 
+### Examples
+
+- [**Counter**](https://github.com/carllosnc/flutter_shared_state/tree/master/lib/modules/counter)
+- [**Todo list**](https://github.com/carllosnc/flutter_shared_state/tree/master/lib/modules/todo_list)
+
 ---
 
 Carlos Costa @ 2024
