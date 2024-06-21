@@ -38,6 +38,14 @@ class _TodoListPageState extends State<TodoListPage> with SharedState {
                 decoration: todo.done ? TextDecoration.lineThrough : null,
               ),
             ),
+            onTap: () {
+              setDescription(context, (String description) {
+                todoList.setDescription(
+                  todo.id,
+                  description,
+                );
+              });
+            },
             leading: IconButton(
               onPressed: () {
                 todoList.checkTodo(todo.id, !todo.done);
@@ -55,6 +63,52 @@ class _TodoListPageState extends State<TodoListPage> with SharedState {
           );
         },
       ),
+    );
+  }
+
+  void setDescription(BuildContext context, Function(String description) updateAction) {
+    final TextEditingController controller = TextEditingController();
+    final formKey = GlobalKey<FormState>();
+
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('Edit Todo'),
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Form(
+              key: formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  TextFormField(
+                    controller: controller,
+                    validator: (value) => (value == null || value.isEmpty) ? 'Description is required' : null,
+                    decoration: const InputDecoration(
+                      labelText: 'Description',
+                    ),
+                    autofocus: true,
+                  ),
+                  const SizedBox(height: 20),
+                  FilledButton(
+                    onPressed: () {
+                      if (formKey.currentState!.validate()) {
+                        updateAction(controller.text);
+                        Navigator.of(context).pop();
+                      }
+                    },
+                    child: const Text('Save'),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

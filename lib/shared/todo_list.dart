@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class Todo {
   final int id;
-  final String description;
+  String description;
   bool done;
 
   Todo({
@@ -40,6 +40,12 @@ class _TodoList extends ChangeNotifier {
 
   void checkTodo(int id, bool done) {
     todos.firstWhere((element) => element.id == id).done = done;
+
+    notifyListeners();
+  }
+
+  void setDescription(int id, String description) {
+    todos.firstWhere((element) => element.id == id).description = description;
 
     notifyListeners();
   }
