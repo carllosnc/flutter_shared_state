@@ -137,7 +137,7 @@ void main() {
 
 - [**Counter**](https://github.com/carllosnc/flutter_shared_state/tree/master/lib/modules/counter)
 - [**Todo list**](https://github.com/carllosnc/flutter_shared_state/tree/master/lib/modules/todo_list)
-
+- [**Async todo list**](https://github.com/carllosnc/flutter_shared_state/tree/master/lib/modules/async_todo_list)
 ---
 
 Carlos Costa @ 2024
