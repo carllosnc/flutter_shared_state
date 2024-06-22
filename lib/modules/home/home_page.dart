@@ -28,6 +28,13 @@ class Home extends StatelessWidget {
               },
             ),
             const Divider(),
+            ListTile(
+              title: const Text('Async Todo List'),
+              onTap: () {
+                Navigator.pushNamed(context, '/async_todo_list');
+              },
+            ),
+            const Divider(),
           ],
         ),
       ),
