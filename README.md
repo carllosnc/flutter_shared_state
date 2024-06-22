@@ -2,13 +2,13 @@
 
 >Sharing state between widgets usgin ChangeNotifier and Mixin
 
-**ChangeNotifier:** is a class that allows you to share state between widgets. It provides a way to notify listeners when the state changes.
+**ChangeNotifier:** is a class that provides a simple way to manage state and notify listeners about changes
 
-**Mixin:** is a way to share state between widgets. It allows you to define a set of methods that can be used by multiple widgets.
+**Mixin:** is a class used to share reusable code across multiple classes. Mixins allow a class to inherit methods and properties from multiple sources, enabling code reuse and composition without the need for multiple inheritance.
 
 With these two resources, we can create a shared state that can be used by multiple widgets.
 
-## 01 - Create a ChangeNotifier
+## 01 - Creating the mixin
 
 ```dart
 import 'package:flutter/material.dart';
@@ -45,9 +45,9 @@ mixin SharedState<T extends StatefulWidget> on State<T> {
 }
 ```
 
-## 02 - Create states extending ChangeNotifier
+## 02 - Creating states that extend ChangeNotifier
 
-States are simple classes that extend `ChangeNotifier`. Our classe will be private and will provide
+States are classes that extend `ChangeNotifier`. Our class will be private and will provide
 only one instance. Check the example below:
 
 ```dart
