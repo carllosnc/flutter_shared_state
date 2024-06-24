@@ -1,14 +1,23 @@
 # Flutter Shared State
 
->Sharing state between widgets usgin ChangeNotifier and Mixin
+>A simple way to share state between widgets using ChangeNotifier to reactivity and Mixins states.
 
-**ChangeNotifier:** is a class that provides a simple way to manage state and notify listeners about changes
+**ChangeNotifier:** is a class that provides a simple way to manage state and notify listeners about changes.
 
-**Mixin:** is a class used to share reusable code across multiple classes. Mixins allow a class to inherit methods and properties from multiple sources, enabling code reuse and composition without the need for multiple inheritance.
+**Mixin:** is a class used to share reusable code across multiple classes. Mixins allow a class to inherit methods and properties from multiple sources.
 
-With these two resources, we can create a shared state that can be used by multiple widgets.
+**Goals:**
 
-## 01 - Creating the mixin
+- *Shareable*: easily accessible from multiple widgets.
+- *Isolated*: no need to worry about ui.
+- *Testable*: easy to test because it's isolated.
+- *Reusable*: can be used in multiple widgets easily.
+- *No dependency*: all resources are provided by dart/flutter.
+- *Controlled*: easy to control the state and side effects
+
+## 01 - Creating the mixin (state container)
+
+This mixin will work like a container for all states, all "state objects" will registred here.
 
 ```dart
 import 'package:flutter/material.dart';
@@ -45,10 +54,9 @@ mixin SharedState<T extends StatefulWidget> on State<T> {
 }
 ```
 
-## 02 - Creating states that extend ChangeNotifier
+## 02 - Creating states that extend ChangeNotifier (state object)
 
-States are classes that extend `ChangeNotifier`. Our class will be private and will provide
-only one instance. Check the example below:
+States are single objects provided by classes that extends `ChangeNotifier`.
 
 ```dart
 import 'package:flutter/material.dart';
@@ -58,17 +66,21 @@ class _Counter extends ChangeNotifier {
 
   void increment() {
     value++;
+
+    //triggering a side effect
     notifyListeners();
   }
 
   void decrement() {
     value--;
+
+    //triggering a side effect
     notifyListeners();
   }
 }
 
-// ignore: library_private_types_in_public_api
-_Counter counter = _Counter();
+//global variable
+var counter = _Counter();
 ```
 
 ## 03 - Using SharedState mixin
@@ -110,7 +122,7 @@ class _CounterPageState extends State<CounterPage> with SharedState {
 }
 ```
 
-## 04 - Testing a shared state
+## 04 - Testing the state object
 
 Our state is completely isolated from the widgets and can be tested easily.
 
