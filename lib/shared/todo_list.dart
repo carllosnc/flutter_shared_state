@@ -53,5 +53,4 @@ class _TodoList extends ChangeNotifier {
   int get randomId => Random().nextInt(100000) + 1;
 }
 
-// ignore: library_private_types_in_public_api
-_TodoList todoList = _TodoList();
+var todoList = _TodoList();

@@ -66,7 +66,8 @@ class _TodoListPageState extends State<TodoListPage> with SharedState {
     );
   }
 
-  void setDescription(BuildContext context, Function(String description) updateAction) {
+  void setDescription(
+      BuildContext context, Function(String description) updateAction) {
     final TextEditingController controller = TextEditingController();
     final formKey = GlobalKey<FormState>();
 
@@ -87,7 +88,9 @@ class _TodoListPageState extends State<TodoListPage> with SharedState {
                 children: [
                   TextFormField(
                     controller: controller,
-                    validator: (value) => (value == null || value.isEmpty) ? 'Description is required' : null,
+                    validator: (value) => (value == null || value.isEmpty)
+                        ? 'Description is required'
+                        : null,
                     decoration: const InputDecoration(
                       labelText: 'Description',
                     ),

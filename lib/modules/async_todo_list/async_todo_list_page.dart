@@ -63,7 +63,9 @@ class AsyncTodoListPageState extends State<AsyncTodoListPage> with SharedState {
                   if (todo.isLoading) return;
                   asyncTodoList.checkTodo(todo.id, !todo.done);
                 },
-                icon: Icon(todo.done ? Icons.check_box : Icons.check_box_outline_blank),
+                icon: Icon(todo.done
+                    ? Icons.check_box
+                    : Icons.check_box_outline_blank),
               ),
               trailing: IconButton(
                 onPressed: () {

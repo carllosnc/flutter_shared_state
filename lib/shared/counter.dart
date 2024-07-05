@@ -14,5 +14,4 @@ class _Counter extends ChangeNotifier {
   }
 }
 
-// ignore: library_private_types_in_public_api
-_Counter counter = _Counter();
+var counter = _Counter();

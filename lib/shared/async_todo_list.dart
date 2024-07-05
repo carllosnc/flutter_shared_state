@@ -56,7 +56,6 @@ class _AsyncTodoList extends ChangeNotifier {
     notifyListeners();
   }
 
-  //delete check
   Future<void> deleteTodo(int id) async {
     todos.firstWhere((element) => element.id == id).isLoading = true;
     notifyListeners();
@@ -70,5 +69,4 @@ class _AsyncTodoList extends ChangeNotifier {
   int get randomId => Random().nextInt(100000) + 1;
 }
 
-// ignore: library_private_types_in_public_api
-_AsyncTodoList asyncTodoList = _AsyncTodoList();
+var asyncTodoList = _AsyncTodoList();
