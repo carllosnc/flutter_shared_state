@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../shared_state.dart';
+import '/shared_state.dart';
 import 'counter_state.dart';
 
 class DecrementButton extends StatefulWidget {
