@@ -1,5 +1,7 @@
 # Flutter Shared State
 
+[![flutter_shared_state](https://github.com/carllosnc/flutter_shared_state/actions/workflows/dart.yml/badge.svg)](https://github.com/carllosnc/flutter_shared_state/actions/workflows/dart.yml)
+
 >A simple way to share state between widgets using ChangeNotifier to reactivity and Mixins states.
 
 **ChangeNotifier:** is a class that provides a simple way to manage state and notify listeners about changes.
