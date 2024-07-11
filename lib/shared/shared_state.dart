@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'counter.dart';
 import 'todo_list.dart';
 import 'async_todo_list.dart';
+import 'database.dart';
 
 export 'counter.dart';
 export 'todo_list.dart';
 export 'async_todo_list.dart';
+export 'database.dart';
 
 /// A mixin that provides shared state management for Flutter widgets.
 /// This mixin is intended to be used with `State` classes of `StatefulWidget`.
@@ -18,6 +20,7 @@ mixin SharedState<T extends StatefulWidget> on State<T> {
     counter.addListener(action);
     todoList.addListener(action);
     asyncTodoList.addListener(action);
+    database.addListener(action);
   }
 
   /// Disposes the state and removes the listener from the global state
@@ -28,6 +31,7 @@ mixin SharedState<T extends StatefulWidget> on State<T> {
     counter.removeListener(action);
     todoList.removeListener(action);
     asyncTodoList.removeListener(action);
+    database.removeListener(action);
   }
 
   /// This method is called whenever the counter changes.

@@ -35,6 +35,12 @@ class Home extends StatelessWidget {
               },
             ),
             const Divider(),
+            ListTile(
+              title: const Text('Sqlite'),
+              onTap: () {
+                Navigator.pushNamed(context, '/sqlite');
+              },
+            ),
           ],
         ),
       ),
