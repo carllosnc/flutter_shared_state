@@ -150,6 +150,7 @@ void main() {
 - [**Counter**](https://github.com/carllosnc/flutter_shared_state/tree/master/lib/modules/counter)
 - [**Todo list**](https://github.com/carllosnc/flutter_shared_state/tree/master/lib/modules/todo_list)
 - [**Async todo list**](https://github.com/carllosnc/flutter_shared_state/tree/master/lib/modules/async_todo_list)
+- [**Todo list with sqlite**](https://github.com/carllosnc/flutter_shared_state/tree/master/lib/modules/sqlite)
 ---
 
 Carlos Costa @ 2024
