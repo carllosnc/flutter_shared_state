@@ -1,7 +1,7 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
-import '/shared/shared_state.dart';
+import '/shared_state.dart';
+import 'database.dart';
 
 class SqlitePage extends StatefulWidget {
   const SqlitePage({super.key});

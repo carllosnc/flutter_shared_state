@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import '/shared/shared_state.dart';
+import '/shared_state.dart';
 import 'increment_button.dart';
 import 'decrement_button.dart';
+import 'counter_state.dart';
 
 class CounterPage extends StatefulWidget {
   const CounterPage({super.key});

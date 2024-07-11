@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '/shared/shared_state.dart';
+import '/modules/sqlite/database.dart';
 
 import 'app.dart';
 

@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_shared_state/shared/shared_state.dart';
+import 'package:flutter_shared_state/modules/counter/counter_state.dart';
 
 void main() {
   test('check counter state', () {

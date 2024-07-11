@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_shared_state/shared/shared_state.dart';
+import 'package:flutter_shared_state/modules/todo_list/todo_list_state.dart';
 
 void main() {
   test('check todo: adding items ', () {

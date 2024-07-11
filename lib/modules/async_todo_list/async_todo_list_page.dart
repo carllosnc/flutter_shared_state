@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '/shared/shared_state.dart';
+import '/shared_state.dart';
+import 'async_todo_list_state.dart';
 
 class AsyncTodoListPage extends StatefulWidget {
   const AsyncTodoListPage({super.key});
@@ -63,9 +64,7 @@ class AsyncTodoListPageState extends State<AsyncTodoListPage> with SharedState {
                   if (todo.isLoading) return;
                   asyncTodoList.checkTodo(todo.id, !todo.done);
                 },
-                icon: Icon(todo.done
-                    ? Icons.check_box
-                    : Icons.check_box_outline_blank),
+                icon: Icon(todo.done ? Icons.check_box : Icons.check_box_outline_blank),
               ),
               trailing: IconButton(
                 onPressed: () {

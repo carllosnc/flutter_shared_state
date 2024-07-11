@@ -1,4 +1,4 @@
-import 'package:flutter_shared_state/shared/async_todo_list.dart';
+import 'package:flutter_shared_state/modules/async_todo_list/async_todo_list_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

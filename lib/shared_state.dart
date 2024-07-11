@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
-import 'counter.dart';
-import 'todo_list.dart';
-import 'async_todo_list.dart';
-import 'database.dart';
-
-export 'counter.dart';
-export 'todo_list.dart';
-export 'async_todo_list.dart';
-export 'database.dart';
+import '/modules/counter/counter_state.dart';
+import '/modules/todo_list/todo_list_state.dart';
+import '/modules/async_todo_list/async_todo_list_state.dart';
+import '/modules/sqlite/database.dart';
 
 /// A mixin that provides shared state management for Flutter widgets.
 /// This mixin is intended to be used with `State` classes of `StatefulWidget`.
