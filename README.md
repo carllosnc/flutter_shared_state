@@ -15,6 +15,13 @@
 - *No dependency*: all resources are provided by dart/flutter.
 - *Controlled*: easy to control the state and side effects
 
+### Examples
+
+- [**Counter**](https://github.com/carllosnc/flutter_shared_state/tree/master/lib/modules/counter)
+- [**Todo list**](https://github.com/carllosnc/flutter_shared_state/tree/master/lib/modules/todo_list)
+- [**Async todo list**](https://github.com/carllosnc/flutter_shared_state/tree/master/lib/modules/async_todo_list)
+- [**Todo list with sqlite**](https://github.com/carllosnc/flutter_shared_state/tree/master/lib/modules/sqlite)
+
 ## 01 - Creating the mixin (state container)
 
 This mixin will work like a container for all states, all "state objects" will registred here.
@@ -144,13 +151,5 @@ void main() {
   });
 }
 ```
-
-### Examples
-
-- [**Counter**](https://github.com/carllosnc/flutter_shared_state/tree/master/lib/modules/counter)
-- [**Todo list**](https://github.com/carllosnc/flutter_shared_state/tree/master/lib/modules/todo_list)
-- [**Async todo list**](https://github.com/carllosnc/flutter_shared_state/tree/master/lib/modules/async_todo_list)
-- [**Todo list with sqlite**](https://github.com/carllosnc/flutter_shared_state/tree/master/lib/modules/sqlite)
----
 
 Carlos Costa @ 2024
