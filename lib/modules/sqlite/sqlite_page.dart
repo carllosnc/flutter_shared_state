@@ -12,6 +12,13 @@ class SqlitePage extends StatefulWidget {
 
 class _SqlitePageState extends State<SqlitePage> with SharedState {
   @override
+  void initState() {
+    super.initState();
+
+    database.getTodos();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
