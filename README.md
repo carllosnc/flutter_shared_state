@@ -1,5 +1,6 @@
 # Flutter Shared State
 
+![Static Badge](https://img.shields.io/badge/Flutter-blue)
 [![flutter_shared_state](https://github.com/carllosnc/flutter_shared_state/actions/workflows/dart.yml/badge.svg)](https://github.com/carllosnc/flutter_shared_state/actions/workflows/dart.yml)
 
 >A simple way to share state between widgets using ChangeNotifier and Mixins.
