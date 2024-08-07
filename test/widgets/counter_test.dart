@@ -3,7 +3,7 @@ import 'package:flutter_shared_state/modules/counter/counter_page.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  testWidgets('counter page', (WidgetTester tester) async {
+  testWidgets('check rendering of counter page', (WidgetTester tester) async {
     await tester.pumpWidget(const MaterialApp(
       home: CounterPage(),
     ));
@@ -15,7 +15,7 @@ void main() {
     expect(find.byKey(const ValueKey('decrement_button')), findsOneWidget);
   });
 
-  testWidgets('increment and decrement buttons', (WidgetTester tester) async {
+  testWidgets('check increment and decrement buttons', (WidgetTester tester) async {
     await tester.pumpWidget(const MaterialApp(
       home: CounterPage(),
     ));
