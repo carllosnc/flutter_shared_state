@@ -15,6 +15,7 @@ class _CounterPageState extends State<CounterPage> with SharedState {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: const ValueKey('counter_page'),
       appBar: AppBar(
         title: const Text('Counter'),
       ),
@@ -27,9 +28,14 @@ class _CounterPageState extends State<CounterPage> with SharedState {
             const SizedBox(width: 10),
             Text(
               '${counter.value}',
+              key: const ValueKey('counter_value'),
             ),
             const SizedBox(width: 10),
             const DecrementButton(),
+            FilledButton(
+              onPressed: () {},
+              child: const Text('Foo'),
+            ),
           ],
         ),
       ),

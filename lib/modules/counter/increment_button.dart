@@ -13,6 +13,7 @@ class _IncrementButtonState extends State<IncrementButton> with SharedState {
   @override
   Widget build(BuildContext context) {
     return FilledButton(
+      key: const ValueKey('increment_button'),
       onPressed: counter.increment,
       child: Text('Increment ${counter.value}'),
     );

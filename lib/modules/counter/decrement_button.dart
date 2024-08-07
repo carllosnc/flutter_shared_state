@@ -13,6 +13,7 @@ class _DecrementButtonState extends State<DecrementButton> with SharedState {
   @override
   Widget build(BuildContext context) {
     return FilledButton(
+      key: const ValueKey('decrement_button'),
       onPressed: counter.decrement,
       child: Text('Decrement ${counter.value}'),
     );
