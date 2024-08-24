@@ -155,4 +155,14 @@ void main() {
 }
 ```
 
+## Use cases
+
+<img src="tomato.jpg">
+
+Tomato works like a Pomodoro timer, you can create multiple timers to organize your tasks and breks.
+This project use `flutter_shared_state` tecnique to share the states between multiple widgets and
+manage a lot of changes in the user interface.
+
+---
+
 Carlos Costa @ 2024
