@@ -27,60 +27,65 @@ class _TodoListPageState extends State<TodoListPage> with SharedState {
       appBar: AppBar(
         title: Text('Todo List - Total: ${todoList.todos.length}'),
       ),
-      body: Builder(builder: (context) {
-        if (todoList.todos.isEmpty) {
-          return const Center(
-            key: ValueKey('todo_list_empty_message'),
-            child: Text('No Todos', style: TextStyle(fontSize: 20)),
-          );
-        }
-
-        return ListView.builder(
-          key: const ValueKey('todo_list_body'),
-          itemCount: todoList.todos.length,
-          itemBuilder: (context, index) {
-            Todo todo = todoList.todos[index];
-
-            return ListTile(
-              key: ValueKey("todo_list_item_$index"),
-              title: Text(
-                todo.description,
-                style: TextStyle(
-                  fontSize: 20,
-                  color: todo.done ? Colors.red : Colors.black,
-                  decoration: todo.done ? TextDecoration.lineThrough : null,
-                ),
-              ),
-              onTap: () {
-                setDescription(context, (String description) {
-                  todoList.setDescription(
-                    todo.id,
-                    description,
-                  );
-                });
-              },
-              leading: IconButton(
-                onPressed: () {
-                  todoList.checkTodo(todo.id, !todo.done);
-                },
-                icon: Icon(
-                  todo.done ? Icons.check_box : Icons.check_box_outline_blank,
-                ),
-              ),
-              trailing: IconButton(
-                onPressed: () {
-                  todoList.removeTodo(todo.id);
-                },
-                icon: const Icon(Icons.delete),
-              ),
+      body: Builder(
+        builder: (context) {
+          if (todoList.todos.isEmpty) {
+            return const Center(
+              key: ValueKey('todo_list_empty_message'),
+              child: Text('No Todos', style: TextStyle(fontSize: 20)),
             );
-          },
-        );
-      }),
+          }
+
+          return ListView.builder(
+            key: const ValueKey('todo_list_body'),
+            itemCount: todoList.todos.length,
+            itemBuilder: (context, index) {
+              Todo todo = todoList.todos[index];
+
+              return ListTile(
+                key: ValueKey("todo_list_item_$index"),
+                title: Text(
+                  todo.description,
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: todo.done ? Colors.red : Colors.black,
+                    decoration: todo.done ? TextDecoration.lineThrough : null,
+                  ),
+                ),
+                onTap: () {
+                  setDescription(context, (String description) {
+                    todoList.setDescription(
+                      todo.id,
+                      description,
+                    );
+                  });
+                },
+                leading: IconButton(
+                  onPressed: () {
+                    todoList.checkTodo(todo.id, !todo.done);
+                  },
+                  icon: Icon(
+                    todo.done ? Icons.check_box : Icons.check_box_outline_blank,
+                  ),
+                ),
+                trailing: IconButton(
+                  onPressed: () {
+                    todoList.removeTodo(todo.id);
+                  },
+                  icon: const Icon(Icons.delete),
+                ),
+              );
+            },
+          );
+        },
+      ),
     );
   }
 
-  void setDescription(BuildContext context, Function(String description) updateAction) {
+  void setDescription(
+    BuildContext context,
+    Function(String description) updateAction,
+  ) {
     final TextEditingController controller = TextEditingController();
     final formKey = GlobalKey<FormState>();
 
@@ -101,7 +106,9 @@ class _TodoListPageState extends State<TodoListPage> with SharedState {
                 children: [
                   TextFormField(
                     controller: controller,
-                    validator: (value) => (value == null || value.isEmpty) ? 'Description is required' : null,
+                    validator: (value) => (value == null || value.isEmpty)
+                        ? 'Description is required'
+                        : null,
                     decoration: const InputDecoration(
                       labelText: 'Description',
                     ),

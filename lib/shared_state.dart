@@ -29,9 +29,11 @@ mixin SharedState<T extends StatefulWidget> on State<T> {
     database.removeListener(action);
   }
 
-  /// This method is called whenever the counter changes.
+  /// This method is called whenever the state changes.
   /// It triggers a rebuild of the widget by calling `setState`.
   void action() {
-    setState(() {});
+    if (mounted) {
+      setState(() {});
+    }
   }
 }

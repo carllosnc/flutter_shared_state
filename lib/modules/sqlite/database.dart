@@ -16,19 +16,19 @@ class DBTodo {
   });
 
   DBTodo.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        title = json['title'],
-        isDone = json['isDone'],
-        description = json['description'];
+    : id = json['id'],
+      title = json['title'],
+      isDone = json['isDone'],
+      description = json['description'];
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'title': title,
-        'isDone': isDone,
-        'description': description,
-      };
+    'id': id,
+    'title': title,
+    'isDone': isDone,
+    'description': description,
+  };
 
-  static asSQL() {
+  static String asSQL() {
     return '''
       CREATE TABLE todo (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -46,7 +46,7 @@ class _Database extends ChangeNotifier {
   List<DBTodo> todos = [];
   bool isLoading = false;
 
-  init() async {
+  Future<void> init() async {
     _database = openDatabase(
       join(
         await getDatabasesPath(),
@@ -74,7 +74,12 @@ class _Database extends ChangeNotifier {
     isLoading = true;
 
     var db = await _database;
-    await db.update('todo', todo.toJson(), where: 'id = ?', whereArgs: [todo.id]);
+    await db.update(
+      'todo',
+      todo.toJson(),
+      where: 'id = ?',
+      whereArgs: [todo.id],
+    );
     await getTodos();
 
     isLoading = false;
@@ -97,7 +102,11 @@ class _Database extends ChangeNotifier {
 
     var db = await _database;
     var todos = await db.query('todo');
-    this.todos = todos.map((e) => DBTodo.fromJson(e)).toList().reversed.toList();
+    this.todos = todos
+        .map((e) => DBTodo.fromJson(e))
+        .toList()
+        .reversed
+        .toList();
 
     isLoading = false;
     notifyListeners();

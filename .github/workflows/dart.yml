@@ -1,21 +1,37 @@
-name: flutter_shared_state
+name: CI
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "master", "main" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "master", "main" ]
+
+permissions:
+  contents: read
 
 jobs:
   build:
+    name: Format, Analyze & Test
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - uses: subosito/flutter-action@v2
-      with:
-        flutter-version: '3.19.5'
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - run: flutter pub get
-    - run: flutter test
-    - run: flutter analyze
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Verify formatting
+        run: dart format --output=none --set-exit-if-changed .
+
+      - name: Analyze project
+        run: flutter analyze
+
+      - name: Run tests
+        run: flutter test

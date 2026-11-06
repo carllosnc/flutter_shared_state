@@ -4,9 +4,11 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   testWidgets('check rendering of counter page', (WidgetTester tester) async {
-    await tester.pumpWidget(const MaterialApp(
-      home: CounterPage(),
-    ));
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: CounterPage(),
+      ),
+    );
     await tester.pumpAndSettle();
 
     expect(find.byKey(const ValueKey('counter_page')), findsOneWidget);
@@ -15,10 +17,14 @@ void main() {
     expect(find.byKey(const ValueKey('decrement_button')), findsOneWidget);
   });
 
-  testWidgets('check increment and decrement buttons', (WidgetTester tester) async {
-    await tester.pumpWidget(const MaterialApp(
-      home: CounterPage(),
-    ));
+  testWidgets('check increment and decrement buttons', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: CounterPage(),
+      ),
+    );
     await tester.pumpAndSettle();
 
     var incrementButton = find.byKey(const ValueKey('increment_button'));

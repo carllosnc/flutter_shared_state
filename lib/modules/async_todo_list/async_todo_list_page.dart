@@ -10,7 +10,7 @@ class AsyncTodoListPage extends StatefulWidget {
 }
 
 class AsyncTodoListPageState extends State<AsyncTodoListPage> with SharedState {
-  createNewTodo() {
+  void createNewTodo() {
     if (asyncTodoList.addLoading) {
       ScaffoldMessenger.of(context).removeCurrentSnackBar();
       ScaffoldMessenger.of(context).showSnackBar(
@@ -64,7 +64,9 @@ class AsyncTodoListPageState extends State<AsyncTodoListPage> with SharedState {
                   if (todo.isLoading) return;
                   asyncTodoList.checkTodo(todo.id, !todo.done);
                 },
-                icon: Icon(todo.done ? Icons.check_box : Icons.check_box_outline_blank),
+                icon: Icon(
+                  todo.done ? Icons.check_box : Icons.check_box_outline_blank,
+                ),
               ),
               trailing: IconButton(
                 onPressed: () {

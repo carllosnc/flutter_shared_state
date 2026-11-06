@@ -20,7 +20,7 @@ class _AsyncTodoList extends ChangeNotifier {
   bool addLoading = false;
   bool removeLoading = false;
 
-  setAddLoading(bool isLoading) {
+  void setAddLoading(bool isLoading) {
     addLoading = isLoading;
     notifyListeners();
   }
