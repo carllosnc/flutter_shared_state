@@ -1,72 +1,125 @@
 # Flutter Shared State
 
-![Static Badge](https://img.shields.io/badge/Flutter-blue)
-[![flutter_shared_state](https://github.com/carllosnc/flutter_shared_state/actions/workflows/dart.yml/badge.svg)](https://github.com/carllosnc/flutter_shared_state/actions/workflows/dart.yml)
+![Static Badge](https://img.shields.io/badge/Flutter-3.x-blue)
+[![CI](https://github.com/carllosnc/flutter_shared_state/actions/workflows/dart.yml/badge.svg)](https://github.com/carllosnc/flutter_shared_state/actions/workflows/dart.yml)
 
->A simple way to share state between widgets using ChangeNotifier and Mixins.
+> A simple way to share state between widgets using ChangeNotifier and Mixins without external dependencies.
 
-**ChangeNotifier:** is a class that provides a simple way to manage state and notify listeners about changes.
+**ChangeNotifier:** A Flutter class that provides change notifications to its listeners.
 
-**Mixin:** is a class used to share reusable code across multiple classes. Mixins allow a class to inherit methods and properties from multiple sources.
+**Mixin:** A way of reusing class code across multiple class hierarchies.
 
-**Goals:**
+## Goals
 
-- *Shareable*: easily accessible from multiple widgets.
-- *Isolated*: no need to worry about ui.
-- *Testable*: easy to test because it's isolated.
-- *Reusable*: can be used in multiple widgets easily.
-- *No dependency*: all resources are provided by dart/flutter.
-- *Controlled*: easy to control the state and side effects
+- **Shareable**: Easily accessible across multiple widgets.
+- **Isolated**: State contains no UI dependencies or BuildContext.
+- **Testable**: Simple unit testing for pure business logic.
+- **Reusable**: Plug into any widget state with a single mixin.
+- **Zero Dependencies**: Relies exclusively on Dart and Flutter core APIs.
+- **Controlled**: Explicit mutations and side-effect handling.
 
-### Examples
+## Architecture Flow
 
-- [**Counter**](https://github.com/carllosnc/flutter_shared_state/tree/master/lib/modules/counter)
-- [**Todo list**](https://github.com/carllosnc/flutter_shared_state/tree/master/lib/modules/todo_list)
-- [**Async todo list**](https://github.com/carllosnc/flutter_shared_state/tree/master/lib/modules/async_todo_list)
-- [**Todo list with sqlite**](https://github.com/carllosnc/flutter_shared_state/tree/master/lib/modules/sqlite)
+```mermaid
+flowchart LR
+    A["Widget (Page)"] -->|"1. calls method"| B["State Object (ChangeNotifier)"]
+    B -->|"2. notifyListeners()"| C["SharedState Mixin"]
+    C -->|"3. if (mounted) setState()"| A
+```
 
-## 01 - Creating the mixin (state container)
+## Examples
 
-This mixin will work like a container for all states, all "state objects" will registred here.
+- [Counter](lib/modules/counter): Basic synchronous counter with split widgets.
+- [Todo List](lib/modules/todo_list): In-memory task management.
+- [Async Todo List](lib/modules/async_todo_list): Simulated asynchronous calls with loading states.
+- [Todo List with SQLite](lib/modules/sqlite): Local persistent storage using SQLite.
+
+## Trade-offs
+
+| Advantages | Considerations |
+| :--- | :--- |
+| Zero external state management packages needed | Entire widget subtree rebuilds on change (no granular selector) |
+| State classes are pure and isolated from BuildContext | Global state instances persist for the application lifecycle |
+| Low cognitive load and minimal boilerplate | For very large apps, scoped dependency injection might be preferred |
+
+## Getting Started
+
+### Prerequisites
+
+- Flutter SDK (stable channel)
+- Dart SDK 3.x or higher
+
+### Running the Project
+
+Clone the repository:
+
+```bash
+git clone https://github.com/carllosnc/flutter_shared_state.git
+cd flutter_shared_state
+```
+
+Install dependencies:
+
+```bash
+flutter pub get
+```
+
+Run the application:
+
+```bash
+flutter run
+```
+
+Run tests and analysis:
+
+```bash
+flutter test
+flutter analyze
+```
+
+## How It Works
+
+### 01. Creating the Mixin (State Container)
+
+The mixin acts as the central state registry, listening to state notifications and rebuilding the widget:
 
 ```dart
 import 'package:flutter/material.dart';
-import 'counter.dart';
-import 'todo_list.dart';
-
-export 'counter.dart';
-export 'todo_list.dart';
+import '/modules/counter/counter_state.dart';
+import '/modules/todo_list/todo_list_state.dart';
+import '/modules/async_todo_list/async_todo_list_state.dart';
+import '/modules/sqlite/database.dart';
 
 mixin SharedState<T extends StatefulWidget> on State<T> {
-  /// Initializes the state and sets up a listener on the global state.
-  /// The listener calls the `action` method whenever the state changes.
   @override
   void initState() {
     super.initState();
     counter.addListener(action);
     todoList.addListener(action);
+    asyncTodoList.addListener(action);
+    database.addListener(action);
   }
 
-  /// Disposes the state and removes the listener from the global state
-  /// to prevent memory leaks.
   @override
   void dispose() {
     super.dispose();
     counter.removeListener(action);
     todoList.removeListener(action);
+    asyncTodoList.removeListener(action);
+    database.removeListener(action);
   }
 
-  /// This method is called whenever the counter changes.
-  /// It triggers a rebuild of the widget by calling `setState`.
   void action() {
-    setState(() {});
+    if (mounted) {
+      setState(() {});
+    }
   }
 }
 ```
 
-## 02 - Creating states that extend ChangeNotifier (state object)
+### 02. Creating the State Object
 
-States are single objects provided by classes that extends `ChangeNotifier`.
+State objects extend `ChangeNotifier` and manage internal data:
 
 ```dart
 import 'package:flutter/material.dart';
@@ -76,30 +129,25 @@ class _Counter extends ChangeNotifier {
 
   void increment() {
     value++;
-
-    //triggering a side effect
     notifyListeners();
   }
 
   void decrement() {
     value--;
-
-    //triggering a side effect
     notifyListeners();
   }
 }
 
-//global variable
 var counter = _Counter();
 ```
 
-## 03 - Using SharedState mixin
+### 03. Consuming State with SharedState
 
-We can use the `SharedState` mixin to share the state between widgets.
+Apply the `SharedState` mixin to any `StatefulWidget`:
 
 ```dart
 import 'package:flutter/material.dart';
-import '/shared/shared_state.dart';
+import 'package:flutter_shared_state/shared_state.dart';
 
 class CounterPage extends StatefulWidget {
   const CounterPage({super.key});
@@ -116,15 +164,9 @@ class _CounterPageState extends State<CounterPage> with SharedState {
         title: const Text('Counter'),
       ),
       body: Center(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            FilledButton(
-              onPressed: counter.increment,
-              child: Text('Increment ${counter.value}'),
-            )
-          ],
+        child: FilledButton(
+          onPressed: counter.increment,
+          child: Text('Increment ${counter.value}'),
         ),
       ),
     );
@@ -132,28 +174,25 @@ class _CounterPageState extends State<CounterPage> with SharedState {
 }
 ```
 
-## 04 - Testing the state object
+### 04. Testing State Objects
 
-Our state is completely isolated from the widgets and can be tested easily.
+Because state logic is decoupled from widgets and `BuildContext`, it can be verified via pure unit tests:
 
 ```dart
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_shared_state/shared/shared_state.dart';
+import 'package:flutter_shared_state/modules/counter/counter_state.dart';
 
 void main() {
   test('check counter state', () {
     expect(counter.value, 0);
     counter.increment();
     expect(counter.value, 1);
-    counter.increment();
-    expect(counter.value, 2);
-    counter.decrement();
-    expect(counter.value, 1);
     counter.decrement();
     expect(counter.value, 0);
   });
 }
 ```
----
 
-Carlos Costa @ 2024
+## AI Agent Guidelines
+
+This repository includes an [AGENT.md](AGENT.md) specification file with architectural boundaries, guardrails, and conventions for AI assistants such as Antigravity, Cursor, Claude Code, and GitHub Copilot.
